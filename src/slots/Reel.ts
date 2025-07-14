@@ -33,7 +33,7 @@ export class Reel {
         this.assignSymbolsToReel();
         this.symbols.forEach((symbol, index) => {
             this.container.addChild(symbol);
-            symbol.position.x += symbol.width * index;
+            symbol.position.x += this.symbolSize * index;
         });
     }
 
