@@ -52,7 +52,7 @@ export class Reel {
     public update(delta: number): void {
         if (!this.isSpinning && this.speed === 0) return;
 
-        // TODO:Move symbols horizontally
+        this.container.x += delta * this.speed;
 
         // If we're stopping, slow down the reel
         if (!this.isSpinning && this.speed > 0) {
