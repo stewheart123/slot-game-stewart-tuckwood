@@ -30,16 +30,21 @@ export class Reel {
     }
 
     private createSymbols(): void {
-        // Create symbols for the reel, arranged horizontally
-         this.container.addChild(this.createRandomSymbol());
-        
-      
+        this.assignSymbolsToReel();
+        this.symbols.forEach((symbol, index) => {
+            this.container.addChild(symbol);
+            symbol.position.x += symbol.width * index;
+        });
+    }
+
+    private assignSymbolsToReel(): void {
+        for(var i = 0; i < this.symbolCount; i ++) {
+            this.symbols.push(this.createRandomSymbol());
+        }
     }
 
     private createRandomSymbol(): PIXI.Sprite {
-     
-        const randomImageSelection = Math.floor(Math.random()* 5 + 1); 
-        console.log(randomImageSelection);
+        const randomImageSelection = Math.floor(Math.random() * 5 + 1);
         const randomTexture = textureCache[`symbol${randomImageSelection}.png`];
         return new PIXI.Sprite(randomTexture);
     }
