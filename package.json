@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "howler": "^2.2.4",
@@ -15,11 +17,14 @@
   },
   "devDependencies": {
     "@types/howler": "^2.2.12",
+    "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "copy-webpack-plugin": "^11.0.0",
     "eslint": "^8.56.0",
     "html-webpack-plugin": "^5.5.3",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.3",
     "webpack": "^5.89.0",

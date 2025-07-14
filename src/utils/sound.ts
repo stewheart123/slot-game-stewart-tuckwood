@@ -1,6 +1,6 @@
 import { Howl } from 'howler';
 
-const soundCache: Record<string, Howl> = {};
+export const soundCache: Record<string, Howl> = {};
 
 export const sound = {
     add: (alias: string, url: string): void => {
