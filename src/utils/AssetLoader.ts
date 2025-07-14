@@ -30,7 +30,7 @@ const SOUNDS = [
     'Spin button.webm',
 ];
 
-const textureCache: Record<string, PIXI.Texture> = {};
+export const textureCache: Record<string, PIXI.Texture> = {};
 const spineCache: Record<string, any> = {};
 
 export class AssetLoader {

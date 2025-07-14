@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { AssetLoader } from '../utils/AssetLoader';
+import { AssetLoader, textureCache } from '../utils/AssetLoader';
 
 const SYMBOL_TEXTURES = [
     'symbol1.png',
@@ -31,14 +31,17 @@ export class Reel {
 
     private createSymbols(): void {
         // Create symbols for the reel, arranged horizontally
+         this.container.addChild(this.createRandomSymbol());
+        
+      
     }
 
     private createRandomSymbol(): PIXI.Sprite {
-        // TODO:Get a random symbol texture
-
-        // TODO:Create a sprite with the texture
-
-        return new PIXI.Sprite();
+     
+        const randomImageSelection = Math.floor(Math.random()* 5 + 1); 
+        console.log(randomImageSelection);
+        const randomTexture = textureCache[`symbol${randomImageSelection}.png`];
+        return new PIXI.Sprite(randomTexture);
     }
 
     public update(delta: number): void {
