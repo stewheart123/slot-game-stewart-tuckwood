@@ -3,7 +3,11 @@ import { SlotMachine } from '../slots/SlotMachine';
 import { AssetLoader } from '../utils/AssetLoader';
 import { sound } from '../utils/sound';
 
-export class UI {
+interface UIInterface {
+    container: PIXI.Container;
+}
+
+export class UI implements UIInterface {
     public container: PIXI.Container;
     private app: PIXI.Application;
     private slotMachine: SlotMachine;

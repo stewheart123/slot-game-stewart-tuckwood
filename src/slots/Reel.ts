@@ -1,9 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { textureCache } from '../utils/AssetLoader';
-import { REEL_SPACING, SYMBOL_SIZE, SYMBOLS_PER_REEL } from './SlotMachine';
-
-const SPIN_SPEED = 50; // Pixels per frame
-const SLOWDOWN_RATE = 0.99; // Rate at which the reel slows down
+import { REEL_SPACING, SLOWDOWN_RATE, SPIN_START_SPEED, SYMBOL_SIZE, SYMBOLS_PER_REEL } from '../GameConfig';
 
 export class Reel {
     public container: PIXI.Container;
@@ -15,23 +12,23 @@ export class Reel {
 
     constructor() {
         this.container = new PIXI.Container();
-        this.symbols = [];        
+        this.symbols = [];
 
-        this.createSymbols();
+        this.populateRandomSymbols();
+        this.populateReelContainer();
     }
 
-    private createSymbols(): void {
-        this.assignSymbolsToReel();
+    private populateRandomSymbols(): void {
+        for (var i = 0; i < SYMBOLS_PER_REEL; i++) {
+            this.symbols.push(this.createRandomSymbol());
+        }
+    }
+
+    private populateReelContainer(): void {
         this.symbols.forEach((symbol, index) => {
             this.container.addChild(symbol);
             symbol.position.x += ((SYMBOL_SIZE + REEL_SPACING) * index) - SYMBOL_SIZE * 0.25;
         });
-    }
-
-    private assignSymbolsToReel(): void {
-        for(var i = 0; i < SYMBOLS_PER_REEL; i ++) {
-            this.symbols.push(this.createRandomSymbol());
-        }
     }
 
     private createRandomSymbol(): PIXI.Sprite {
@@ -45,7 +42,8 @@ export class Reel {
 
         this.container.x += delta * this.speed;
 
-        if(this.container.x > window.innerWidth) {
+        // reset container position to left when its off screen
+        if (this.container.x > window.innerWidth) {
             this.container.x = - this.container.width;
             this.spinCount++;
         }
@@ -55,7 +53,7 @@ export class Reel {
             this.speed *= SLOWDOWN_RATE;
 
             // Snap to grid when within range and speed is low
-            if ( this.container.x <= this.snappingRange && this.container.x >= -this.snappingRange) {
+            if (this.container.x <= this.snappingRange && this.container.x >= -this.snappingRange) {
                 this.speed = 0;
                 this.snapToGrid();
             }
@@ -68,7 +66,8 @@ export class Reel {
 
     public startSpin(): void {
         this.isSpinning = true;
-        this.speed = SPIN_SPEED;
+        
+        this.speed = SPIN_START_SPEED;
     }
 
     public stopSpin(): void {

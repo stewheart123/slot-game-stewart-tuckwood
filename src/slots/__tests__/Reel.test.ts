@@ -51,7 +51,7 @@ describe('Reel', () => {
 
       // Assert
       expect((reel as any).isSpinning).toBe(true);
-      expect((reel as any).speed).toBe(50); // SPIN_SPEED
+      expect((reel as any).speed).toBe(50); // SPIN_START_SPEED
     });
   });
 

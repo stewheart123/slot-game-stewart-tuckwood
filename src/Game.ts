@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { SlotMachine } from './slots/SlotMachine';
 import { AssetLoader } from './utils/AssetLoader';
 import { UI } from './ui/UI';
+import { GAME_HEIGHT, GAME_WIDTH } from './GameConfig';
 
 export class Game {
     private app: PIXI.Application;
@@ -11,8 +12,8 @@ export class Game {
 
     constructor() {
         this.app = new PIXI.Application({
-            width: 1280,
-            height: 800,
+            width: GAME_WIDTH,
+            height: GAME_HEIGHT,
             backgroundColor: 0x1099bb,
             resolution: window.devicePixelRatio || 1,
             autoDensity: true,
