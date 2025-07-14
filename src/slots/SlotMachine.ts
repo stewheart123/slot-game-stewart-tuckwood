@@ -107,6 +107,7 @@ export class SlotMachine {
                     setTimeout(() => {
                         this.checkWin();
                         this.isSpinning = false;
+                        sound.stop('Reel spin');
 
                         if (this.spinButton) {
                             this.spinButton.texture = AssetLoader.getTexture('button_spin.png');

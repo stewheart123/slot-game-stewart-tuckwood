@@ -1,9 +1,20 @@
-// TODO: Implement sound player using the "howler" package
+import { Howl } from 'howler';
+
+const soundCache: Record<string, Howl> = {};
+
 export const sound = {
     add: (alias: string, url: string): void => {
-        console.log(`Sound added: ${alias} from ${url}`);
+        soundCache[alias] = new Howl({
+            src: [url],
+            preload: true
+        });
     },
+    
     play: (alias: string): void => {
-        console.log(`Playing sound: ${alias}`);
+        soundCache[alias]?.play();
+    },
+
+    stop: (alias: string): void => {
+        soundCache[alias]?.stop();
     }
 };
