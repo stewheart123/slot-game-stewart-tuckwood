@@ -9,7 +9,7 @@ const REEL_COUNT = 4;
 const SYMBOLS_PER_REEL = 6;
 const SYMBOL_SIZE = 150;
 const REEL_HEIGHT = SYMBOL_SIZE;
-const REEL_SPACING = 10;
+export const REEL_SPACING = 10;
 
 export class SlotMachine {
     public container: PIXI.Container;

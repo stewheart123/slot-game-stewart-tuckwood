@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { AssetLoader, textureCache } from '../utils/AssetLoader';
+import { REEL_SPACING } from './SlotMachine';
 
 const SYMBOL_TEXTURES = [
     'symbol1.png',
@@ -33,7 +34,7 @@ export class Reel {
         this.assignSymbolsToReel();
         this.symbols.forEach((symbol, index) => {
             this.container.addChild(symbol);
-            symbol.position.x += this.symbolSize * index;
+            symbol.position.x += ((this.symbolSize + REEL_SPACING) * index) - this.symbolSize * 0.25;
         });
     }
 
@@ -54,6 +55,11 @@ export class Reel {
 
         this.container.x += delta * this.speed;
 
+        if(this.container.x > window.innerWidth) {
+            this.container.x = - this.container.width;
+        }
+
+
         // If we're stopping, slow down the reel
         if (!this.isSpinning && this.speed > 0) {
             this.speed *= SLOWDOWN_RATE;
@@ -67,8 +73,7 @@ export class Reel {
     }
 
     private snapToGrid(): void {
-        // TODO: Snap symbols to horizontal grid positions
-
+        this.container.x = 0;
     }
 
     public startSpin(): void {
