@@ -115,7 +115,7 @@ export class SlotMachine {
                         }
                     }, 500);
                 }
-            }, i * 400);
+            }, i * 100);
         }
     }
 

@@ -3,13 +3,15 @@ import { textureCache } from '../utils/AssetLoader';
 import { REEL_SPACING, SYMBOL_SIZE, SYMBOLS_PER_REEL } from './SlotMachine';
 
 const SPIN_SPEED = 50; // Pixels per frame
-const SLOWDOWN_RATE = 0.95; // Rate at which the reel slows down
+const SLOWDOWN_RATE = 0.99; // Rate at which the reel slows down
 
 export class Reel {
     public container: PIXI.Container;
     private symbols: PIXI.Sprite[];
     private speed: number = 0;
     private isSpinning: boolean = false;
+    private spinCount: number = 0;
+    private snappingRange = 25;
 
     constructor() {
         this.container = new PIXI.Container();
@@ -45,14 +47,15 @@ export class Reel {
 
         if(this.container.x > window.innerWidth) {
             this.container.x = - this.container.width;
+            this.spinCount++;
         }
 
         // If we're stopping, slow down the reel
-        if (!this.isSpinning && this.speed > 0) {
+        if (!this.isSpinning && this.speed > 0 && this.spinCount > 0) {
             this.speed *= SLOWDOWN_RATE;
 
-            // If speed is very low, stop completely and snap to grid
-            if (this.speed < 0.5) {
+            // Snap to grid when within range and speed is low
+            if ( this.container.x <= this.snappingRange && this.container.x >= -this.snappingRange) {
                 this.speed = 0;
                 this.snapToGrid();
             }
