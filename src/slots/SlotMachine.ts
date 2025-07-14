@@ -3,7 +3,7 @@ import 'pixi-spine';
 import { Reel } from './Reel';
 import { sound } from '../utils/sound';
 import { AssetLoader } from '../utils/AssetLoader';
-import {Spine} from "pixi-spine";
+import { Spine } from "pixi-spine";
 
 const REEL_COUNT = 4;
 const SYMBOLS_PER_REEL = 6;
@@ -127,7 +127,11 @@ export class SlotMachine {
             console.log('Winner!');
 
             if (this.winAnimation) {
-                // TODO: Play the win animation found in "big-boom-h" spine
+                this.winAnimation.visible = true;
+
+                if (this.winAnimation.state.hasAnimation('start')) {
+                    this.winAnimation.state.setAnimation(0, 'start', false);
+                }
             }
         }
     }
