@@ -1,6 +1,25 @@
 # slot-game
 Slot game assignment by Stewart
 
-Install with npm i
-Start the game with npm start
-if no browser opens, visit http://localhost:9000/ in order to see the game running
+## Getting Started
+
+### 1. Install dependencies
+```
+npm install
+```
+
+### 2. Run the game (development server)
+```
+npm start
+```
+Then open your browser to [http://localhost:9000](http://localhost:9000)
+
+### 3. Run tests
+```
+npm test
+```
+
+---
+
+- Make sure you have Node.js and npm installed.
+- For debugging, see the `.vscode/launch.json` for VS Code launch configurations.
