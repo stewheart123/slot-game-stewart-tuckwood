@@ -6,8 +6,8 @@ import { AssetLoader } from '../utils/AssetLoader';
 import { Spine } from "pixi-spine";
 
 const REEL_COUNT = 4;
-const SYMBOLS_PER_REEL = 6;
-const SYMBOL_SIZE = 150;
+export const SYMBOLS_PER_REEL = 6;
+export const SYMBOL_SIZE = 150;
 const REEL_HEIGHT = SYMBOL_SIZE;
 export const REEL_SPACING = 10;
 
@@ -56,7 +56,7 @@ export class SlotMachine {
     private createReels(): void {
         // Create each reel
         for (let i = 0; i < REEL_COUNT; i++) {
-            const reel = new Reel(SYMBOLS_PER_REEL, SYMBOL_SIZE);
+            const reel = new Reel();
             reel.container.y = i * (REEL_HEIGHT + REEL_SPACING);
             this.container.addChild(reel.container);
             this.reels.push(reel);
@@ -87,13 +87,13 @@ export class SlotMachine {
         for (let i = 0; i < this.reels.length; i++) {
             setTimeout(() => {
                 this.reels[i].startSpin();
-            }, i * 200);
+            }, i * 100);
         }
 
         // Stop all reels after a delay
         setTimeout(() => {
             this.stopSpin();
-        }, 500 + (this.reels.length - 1) * 200);
+        }, 100 + (this.reels.length - 1) * 220);
 
     }
 

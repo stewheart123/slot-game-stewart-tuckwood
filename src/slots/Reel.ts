@@ -1,14 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { AssetLoader, textureCache } from '../utils/AssetLoader';
-import { REEL_SPACING } from './SlotMachine';
-
-const SYMBOL_TEXTURES = [
-    'symbol1.png',
-    'symbol2.png',
-    'symbol3.png',
-    'symbol4.png',
-    'symbol5.png',
-];
+import { textureCache } from '../utils/AssetLoader';
+import { REEL_SPACING, SYMBOL_SIZE, SYMBOLS_PER_REEL } from './SlotMachine';
 
 const SPIN_SPEED = 50; // Pixels per frame
 const SLOWDOWN_RATE = 0.95; // Rate at which the reel slows down
@@ -16,16 +8,12 @@ const SLOWDOWN_RATE = 0.95; // Rate at which the reel slows down
 export class Reel {
     public container: PIXI.Container;
     private symbols: PIXI.Sprite[];
-    private symbolSize: number;
-    private symbolCount: number;
     private speed: number = 0;
     private isSpinning: boolean = false;
 
-    constructor(symbolCount: number, symbolSize: number) {
+    constructor() {
         this.container = new PIXI.Container();
-        this.symbols = [];
-        this.symbolSize = symbolSize;
-        this.symbolCount = symbolCount;
+        this.symbols = [];        
 
         this.createSymbols();
     }
@@ -34,12 +22,12 @@ export class Reel {
         this.assignSymbolsToReel();
         this.symbols.forEach((symbol, index) => {
             this.container.addChild(symbol);
-            symbol.position.x += ((this.symbolSize + REEL_SPACING) * index) - this.symbolSize * 0.25;
+            symbol.position.x += ((SYMBOL_SIZE + REEL_SPACING) * index) - SYMBOL_SIZE * 0.25;
         });
     }
 
     private assignSymbolsToReel(): void {
-        for(var i = 0; i < this.symbolCount; i ++) {
+        for(var i = 0; i < SYMBOLS_PER_REEL; i ++) {
             this.symbols.push(this.createRandomSymbol());
         }
     }
@@ -58,7 +46,6 @@ export class Reel {
         if(this.container.x > window.innerWidth) {
             this.container.x = - this.container.width;
         }
-
 
         // If we're stopping, slow down the reel
         if (!this.isSpinning && this.speed > 0) {
