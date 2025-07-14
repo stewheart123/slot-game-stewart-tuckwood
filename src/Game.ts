@@ -39,6 +39,7 @@ export class Game {
 
             this.slotMachine = new SlotMachine(this.app);
             this.app.stage.addChild(this.slotMachine.container);
+            this.app.stage.addChild(this.slotMachine.reelContainer);
 
             this.ui = new UI(this.app, this.slotMachine);
             this.app.stage.addChild(this.ui.container);

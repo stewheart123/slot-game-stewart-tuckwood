@@ -13,6 +13,7 @@ export const REEL_SPACING = 10;
 
 export class SlotMachine {
     public container: PIXI.Container;
+    public reelContainer: PIXI.Container;
     private reels: Reel[];
     private app: PIXI.Application;
     private isSpinning: boolean = false;
@@ -23,17 +24,36 @@ export class SlotMachine {
     constructor(app: PIXI.Application) {
         this.app = app;
         this.container = new PIXI.Container();
+        this.reelContainer = new PIXI.Container();
+
         this.reels = [];
 
         // Center the slot machine
         this.container.x = this.app.screen.width / 2 - ((SYMBOL_SIZE * SYMBOLS_PER_REEL) / 2);
         this.container.y = this.app.screen.height / 2 - ((REEL_HEIGHT * REEL_COUNT + REEL_SPACING * (REEL_COUNT - 1)) / 2);
 
+        this.reelContainer.x = this.container.x;
+        this.reelContainer.y = this.container.y;
         this.createBackground();
 
         this.createReels();
+        this.createReelMask();
 
         this.initSpineAnimations();
+    }
+
+    private createReelMask(): void {
+        const reelMask = new PIXI.Graphics();
+        reelMask.beginFill(0x000000, 0.5);
+        reelMask.drawRect(
+                -20,
+                -20,
+                (SYMBOL_SIZE + REEL_SPACING) * SYMBOLS_PER_REEL + REEL_SPACING,
+                REEL_HEIGHT * REEL_COUNT + REEL_SPACING * (REEL_COUNT - 1) + 40 // Height based on reel count
+            );
+            reelMask.endFill();
+            this.reelContainer.addChild(reelMask);
+            this.reelContainer.mask = reelMask;
     }
 
     private createBackground(): void {
@@ -43,7 +63,7 @@ export class SlotMachine {
             background.drawRect(
                 -20,
                 -20,
-                SYMBOL_SIZE * SYMBOLS_PER_REEL + 40, // Width now based on symbols per reel
+                (SYMBOL_SIZE + REEL_SPACING) * SYMBOLS_PER_REEL + REEL_SPACING, // Width now based on symbols per reel
                 REEL_HEIGHT * REEL_COUNT + REEL_SPACING * (REEL_COUNT - 1) + 40 // Height based on reel count
             );
             background.endFill();
@@ -57,8 +77,8 @@ export class SlotMachine {
         // Create each reel
         for (let i = 0; i < REEL_COUNT; i++) {
             const reel = new Reel();
-            reel.container.y = i * (REEL_HEIGHT + REEL_SPACING);
-            this.container.addChild(reel.container);
+            reel.container.y = i * (REEL_HEIGHT + REEL_SPACING) - REEL_SPACING;
+            this.reelContainer.addChild(reel.container);
             this.reels.push(reel);
         }
     }
