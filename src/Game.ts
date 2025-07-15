@@ -71,7 +71,7 @@ export class Game {
         // Calculate scale to fit the container while maintaining aspect ratio
         const scale = Math.min(w / 1280, h / 800);
 
-        this.app.stage.scale.set(scale);
+        this.app.stage.scale.set(scale * 0.7);
 
         // Center the stage
         this.app.renderer.resize(w, h);

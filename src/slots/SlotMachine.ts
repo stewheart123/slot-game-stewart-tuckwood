@@ -78,7 +78,7 @@ export class SlotMachine implements SlotMachineInterface {
         // Stop all reels after a delay
         setTimeout(() => {
             this.stopSpin();
-        }, 100 + (this.reels.length - 1) * 220);
+        }, 100 + (this.reels.length - 1) * 100);
 
     }
 
@@ -136,9 +136,9 @@ export class SlotMachine implements SlotMachineInterface {
                             this.spinButton.texture = AssetLoader.getTexture('button_spin.png');
                             this.spinButton.interactive = true;
                         }
-                    }, 500);
+                    }, 90);
                 }
-            }, i * 100);
+            }, i * 90);
         }
     }
 
