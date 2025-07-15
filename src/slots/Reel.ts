@@ -43,7 +43,7 @@ export class Reel {
         this.container.x += delta * this.speed;
 
         // reset container position to left when its off screen
-        if (this.container.x > window.innerWidth) {
+        if (this.container.x > this.container.width) {
             this.container.x = - this.container.width;
             this.spinCount++;
         }
